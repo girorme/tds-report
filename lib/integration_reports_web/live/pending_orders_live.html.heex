@@ -1,0 +1,49 @@
+<h1>Pedidos pendentes de integração</h1>
+
+<div class="orders">
+  <div class="export">
+    <.link href={~p"/export"} method="post">
+      Exportar
+    </.link>
+    <i class="fas fa-file-export"></i>
+  </div>
+
+  <div class="qtys mt-2 mb-2">
+    <h5 class="text-2xl font-bold">Total: <%= @qty %></h5>
+  </div>
+
+  <div class="wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Bandeira</th>
+          <th>Pedido integration_report</th>
+          <th>Parceiro</th>
+          <th>Pedido Parceiro</th>
+          <th>
+            <.sort_link sort_by={:msg} options={@options}>
+              Erro
+            </.sort_link>
+          </th>
+          <th>
+            <.sort_link sort_by={:created_at} options={@options}>
+              Data Criação
+            </.sort_link>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :for={order <- @pending_orders}>
+          <td><%= order.bandeira %></td>
+          <td><%= order.pedido_integration_report %></td>
+          <td><%= order.parceiro %></td>
+          <td><%= order.pedido_parceiro %></td>
+          <td><%= order.msg %></td>
+          <td>
+            <%= "#{order.created_at.day}/#{order.created_at.month}/#{order.created_at.year} #{order.created_at.hour}:#{order.created_at.minute}:#{order.created_at.second}" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

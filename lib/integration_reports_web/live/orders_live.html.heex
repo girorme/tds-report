@@ -1,0 +1,32 @@
+<h1>Pedidos pendentes de integração</h1>
+
+<div class="orders">
+  <div class="wrapper">
+    <Flop.Phoenix.table items={@orders} meta={@meta} path={~p"/orders"}>
+      <:col :let={order} label="Bandeira" field={:bandeira}><%= order.bandeira %></:col>
+      <:col :let={order} label="Pedido integration report" field={:pedido_integration_report}>
+        <%= order.pedido_integration_report %>
+      </:col>
+      <:col :let={order} label="Pedido parceiro" field={:pedido_parceiro}>
+        <%= order.pedido_parceiro %>
+      </:col>
+      <:col :let={_order} label="Data" field={:erro}>
+        <button
+          type="button"
+          class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+        >
+          Exibir Payload
+        </button>
+      </:col>
+      <:col :let={order} label="Created at" field={:created_at}>
+        <%= "#{order.created_at.day}/#{order.created_at.month}/#{order.created_at.year} #{order.created_at.hour}:#{order.created_at.minute}:#{order.created_at.second}" %>
+      </:col>
+    </Flop.Phoenix.table>
+
+    <Flop.Phoenix.pagination
+      meta={@meta}
+      path={~p"/orders"}
+      opts={IntegrationReportsWeb.FlopConfig.pagination_opts()}
+    />
+  </div>
+</div>

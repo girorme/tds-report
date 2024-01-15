@@ -1,0 +1,81 @@
+# Default values for charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: define
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    {}
+
+  hosts:
+    - host: integration-reports.com.br
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+      - secretName: secret-name
+        hosts:
+          - integration-reports.com.br
+
+resources:
+  limits:
+    cpu: '2'
+    memory: 2Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 100 # store golive
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 50
+
+nodeSelector:
+  app: integration_report
+
+tolerations: []
+
+affinity: {}

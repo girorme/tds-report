@@ -1,0 +1,68 @@
+# Default values for charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: define
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+
+securityContext:
+  {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    {}
+
+  hosts:
+    - host: integration-reports-hlg.com.br
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: secret-name
+      hosts:
+        - integration-reports-hlg.com.br
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 400Mi
+  requests:
+    cpu: 200m
+    memory: 400Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector:
+  app: integration_report
+
+tolerations: []
+
+affinity: {}

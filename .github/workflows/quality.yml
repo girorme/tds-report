@@ -1,0 +1,54 @@
+name: Ensure code quality
+
+env:
+  LANG: "en_US.UTF-8"
+  ImageOS: ubuntu-latest
+  MIX_ENV: test
+
+on: pull_request
+
+jobs:
+  code-analysis:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        elixir: ["1.14.4"]
+        otp: ["25.3"]
+    steps:
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Install basic packages
+        run: sudo apt update -y && sudo apt install -y libncurses5 openssl git g++ bash curl make libc-dev build-essential
+      - name: Sets up an Erlang/OTP environment
+        uses: actions/setup-elixir@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+          experimental-otp: true
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        if: always()
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: cvapi-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - name: Install dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p priv/plts
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+          mix dialyzer --plt
+      - name: Check code format
+        run: mix format --check-formatted
+      - name: Static code analysis
+        run: mix credo list
+      - name: Dialyzer
+        run: mix dialyzer --no-check --ignore-exit-status
+      - name: Run tests
+        run: mix test.coverage

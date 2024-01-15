@@ -1,0 +1,90 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+h1 {
+    @apply text-center text-slate-900 font-extrabold text-3xl;
+}
+
+.orders {
+    @apply mt-8 mx-auto w-1/2;
+  }
+  .orders .wrapper {
+    @apply mb-4 align-middle inline-block min-w-full shadow overflow-hidden rounded-lg border-b border-slate-300;
+  }
+  .orders a {
+    @apply underline text-indigo-500 font-semibold;
+  }
+
+  .orders table {
+    @apply min-w-full table-fixed;
+  }
+  .orders table th {
+    @apply bg-transparent px-6 py-4 border-b border-slate-300 bg-indigo-700 text-base font-medium uppercase tracking-wider text-center text-white;
+  }
+  .orders table th a {
+    @apply no-underline text-white;
+  }
+  .orders table td {
+    @apply px-6 py-4 border-b border-slate-300 text-lg font-medium text-slate-900 text-center;
+  }
+  .orders table tbody {
+    @apply bg-white;
+  }
+  .orders table th.item {
+    @apply pl-12 text-left;
+  }
+  .orders table td.item {
+    @apply pl-12 font-semibold text-left w-2/5;
+  }
+  .orders table td.quantity {
+    @apply w-1/5;
+  }
+  .orders table td.expires {
+    @apply w-2/5;
+  }
+  .orders table td .id {
+    @apply text-slate-400 -ml-8 mr-4 text-base tabular-nums inline-block w-6;
+  }
+  .orders table td .emoji {
+    @apply mr-1;
+  }
+  .orders .footer {
+    @apply text-center bg-white max-w-4xl mx-auto text-lg py-8;
+  }
+  .orders .footer .pagination {
+    @apply inline-flex shadow-sm;
+  }
+  .orders .footer a {
+    @apply -ml-px inline-flex items-center px-3 py-2 border border-slate-300 bg-white text-base font-medium text-slate-600 no-underline;
+  }
+  .orders .footer a:hover {
+    @apply bg-slate-300;
+  }
+  .orders .footer a.active {
+    @apply bg-indigo-700 text-white;
+  }
+  .orders .footer a:first-child {
+    @apply rounded-l-md;
+  }
+  .orders .footer a:last-child {
+    @apply rounded-r-md;
+  }
+  .orders .footer a.previous {
+    @apply rounded-l-md;
+  }
+  .orders .footer a.next {
+    @apply rounded-r-md;
+  }
+  .orders form {
+    @apply flex items-center justify-end mb-4;
+  }
+  .orders form select {
+    @apply appearance-none bg-slate-200 border border-slate-400 text-slate-700 py-0 pr-7 mr-2 h-8 rounded-lg font-semibold cursor-pointer text-sm mx-1;
+  }
+  .orders form select:focus {
+    @apply outline-none bg-slate-200 border-slate-500;
+  }
+  
